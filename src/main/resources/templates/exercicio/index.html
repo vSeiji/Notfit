@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Notfit</title>
+</head>
+<body class="#eceff1 blue-grey lighten-5">
+    <nav>
+        <div class="nav-wrapper #0091ea light-blue accent-4">
+          <a href="#" class="brand-logo">Notfit</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="active"><a href="/exercicio">Pendentes</a></li>
+            <li><a href="#">Concluidos</a></li>
+            <li><a href="#">Perfil</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <main class="container">
+        <div class="card-panel teal white-text" th:if="${success}" th:text="${success}"></div>
+        <div class="card-panel red white-text" th:if="${error}" th:text="${error}"></div>
+        <h2>Exercicios Pendentes</h2>
+
+        <div class="row">
+            <div class="col s12 m6 l4" th:each="ex : ${exercicios}">
+              <div class="card"> 
+                <div class="card-content">
+                  <span class="card-title" th:text="${ex.title}"></span>
+                  <p th:text="${ex.description}"></p>
+                  <span data-badge-caption="Pontos" class="badge blue white-text" th:text="${ex.score}"></span>
+                </div>
+                
+                <div class="card-action">
+                  <a href="#" class="btn green"><i class="material-icons">check</i></a>
+                  <a href="#" class="btn red" th:href="${'/exercicio/delete/' + ex.id}"><i class="material-icons">delete</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </main>
+
+      <div class="fixed-action-btn">
+        <a href="/exercicio/new" class="btn-floating btn-large blue">
+          <i class="large material-icons">add</i>
+        </a>
+      </div>
+ 
+</body>
+</html>

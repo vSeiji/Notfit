@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Notfit</title>
+</head>
+<body class="#eceff1 blue-grey lighten-5">
+    <nav>
+        <div class="nav-wrapper #0091ea light-blue accent-4">
+          <a href="#" class="brand-logo">Notfit</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="active"><a href="/exercicio">Pendentes</a></li>
+            <li><a href="#">Concluidos</a></li>
+            <li><a href="#">Perfil</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <main class="container">
+        <h2>Cadastrar exercicio</h2>
+
+        <div class="card">
+          <form th:action="${'/exercicio'}" method="post" th:object="${exercicio}">
+            <div class="card-content">
+
+              <div class="input-field">
+                <input type="text" th:field="*{title}" th:class="${#fields.hasErrors('title')} ? invalid">
+                <label for="title">Titulo</label>
+                <span class="helper-text red-text" th:errors="*{title}"></span>
+              </div>
+
+              <div class="input-field">
+                <textarea class="materialize-textarea" th:field="*{description}" th:classappend="${#fields.hasErrors('description')} ? invalid"></textarea>
+                <label for="description">Descrição</label>
+                <span class="helper-text red-text" th:errors="*{description}"></span>
+              </div>
+
+              <label for="score">Pontos</label>
+              <p class="range-field">
+                <input type="range" min="1" max="100" th:field="*{score}"/>
+              </p>
+              <span class="helper-text red-text" th:errors="*{score}">*Campo Obrigatório</span>
+
+            </div>
+
+            <div class="card-action right-align">
+              <a href="/exercicio">Cancelar</a>
+              <button class="btn">Cadastrar</button>
+            </div>
+
+          </form>
+        </div>
+
+      </main>
+
+</body>
+</html>
