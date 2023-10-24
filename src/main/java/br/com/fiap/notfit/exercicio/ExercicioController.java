@@ -1,13 +1,8 @@
 package br.com.fiap.notfit.exercicio;
 
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,13 +21,8 @@ public class ExercicioController {
     @Autowired
     ExercicioService service;
 
-    @Autowired
-    MessageSource message;
-
     @GetMapping
-    public String index(Model model, @AuthenticationPrincipal OAuth2User user) {
-        model.addAttribute("username", user.getAttribute("name"));
-        model.addAttribute("avatar_url", user.getAttribute("avatar_url"));
+    public String index(Model model) {
         model.addAttribute("exercicios", service.findAll());
         return "exercicio/index";
     }
@@ -40,9 +30,9 @@ public class ExercicioController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirect) {
         if(service.delete(id)) {
-            redirect.addFlashAttribute("success", getMessage("exercicio.delete.success"));
+            redirect.addFlashAttribute("success", "Exercicio apagado com sucesso");
         }else{
-            redirect.addFlashAttribute("error", getMessage("exercicio.notfound"));
+            redirect.addFlashAttribute("error", "Exercicio não foi apagado");
         }
         return "redirect:/exercicio";
     }
@@ -56,11 +46,7 @@ public class ExercicioController {
     public String create(@Valid Exercicio exercicio , BindingResult result,RedirectAttributes redirect) {
         if (result.hasErrors()) return "exercicio/form";
         service.save(exercicio);
-        redirect.addFlashAttribute("success", getMessage("exercicio.create.success"));
+        redirect.addFlashAttribute("success", "Exercicio cadastrado com sucesso");
         return "redirect:/exercicio";
-    }
-
-    private String getMessage(String code){
-        return message.getMessage(code, null, LocaleContextHolder.getLocale());
     }
 }

@@ -19,7 +19,7 @@ public class Exercicio {
     @NotBlank
     String title;
 
-    @Size(min = 10, message = "{exercicio.description.size}")
+    @Size(min = 10, message = "*A descrição deve ter pelo menos 10 caracteres")
     String description;
 
     @Positive
