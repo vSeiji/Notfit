@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Notfit</title>
+</head>
+
+<body class="grey lighten-2">
+    
+    <main class="container center">
+
+        <h4>Tem certeza que deseja sair?</h4>
+
+        <form th:action="${'/logout'}" method="post">
+            <a href="/exercicio" class="btn red">
+                <i class="material-icons left">chevron_left</i>
+                Não
+            </a>
+
+            <button class="btn">Sim
+                <i class="material-icons left">check</i>
+            </button>
+        </form>
+
+ 
+    </main>
+
+</body>
+</html>

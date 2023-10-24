@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>Notfit</title>
 </head>
 <body class="#eceff1 blue-grey lighten-5">
@@ -12,9 +14,22 @@
         <div class="nav-wrapper #0091ea light-blue accent-4">
           <a href="#" class="brand-logo">Notfit</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="active"><a href="/exercicio">Pendentes</a></li>
-            <li><a href="#">Concluidos</a></li>
-            <li><a href="#">Perfil</a></li>
+            <li class="active"><a href="/exercicio" th:text="#{exercicio.pending}"></a></li>
+            <li><a href="#" th:text="#{exercicio.done}"></a></li>
+            <li><a href="#" th:text="#{users}"></a></li>
+            <li>
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-trigger' href='#' data-target='dropdown1'>
+                  <img th:src="${avatar_url}" alt="avatar do usuario" class="avatar">
+                </a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown1' class='dropdown-content'>
+                  <li><span th:text="${username}"></span></li>
+                  <li class="divider" tabindex="-1"></li>
+                  <li><a href="#!"><i class="material-icons">logout</i>Sair</a></li>
+                </ul>
+            </li>
           </ul>
         </div>
       </nav>
@@ -50,4 +65,16 @@
       </div>
  
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    const options = {
+      constrainWidth: false,
+      coverTrigger: false
+    };
+    var instances = M.Dropdown.init(elems, options);
+  });
+</script>
+
 </html>
