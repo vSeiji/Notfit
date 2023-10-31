@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.fiap.notfit.user.User;
 import jakarta.validation.Valid;
 
 @Controller
@@ -48,7 +49,9 @@ public class ExercicioController {
     }
 
     @GetMapping("new")
-    public String form(Exercicio exercicio) {
+    public String form(Exercicio exercicio, Model model, @AuthenticationPrincipal OAuth2User user) {
+        model.addAttribute("username", user.getAttribute("name"));
+        model.addAttribute("avatar_url", user.getAttribute("avatar_url"));
         return "exercicio/form";
     }
 
@@ -63,4 +66,19 @@ public class ExercicioController {
     private String getMessage(String code){
         return message.getMessage(code, null, LocaleContextHolder.getLocale());
     }
+
+    @GetMapping("catch/{id}")
+    public String catchExercicio(@PathVariable Long id, @AuthenticationPrincipal OAuth2User user) {
+        service.catchExercicio(id, User.convert(user));
+        return "redirect:/exercicio";
+    }
+
+    
+    @GetMapping("drop/{id}")
+    public String dropExercicio(@PathVariable Long id, @AuthenticationPrincipal OAuth2User user) {
+        service.dropExercicio(id, User.convert(user));
+        return "redirect:/exercicio";
+    }
+
+
 }

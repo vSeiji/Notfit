@@ -1,38 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>Notfit</title>
-</head>
-<body class="#eceff1 blue-grey lighten-5">
-    <nav>
-        <div class="nav-wrapper #0091ea light-blue accent-4">
-          <a href="#" class="brand-logo">Notfit</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="active"><a href="/exercicio" th:text="#{exercicio.pending}"></a></li>
-            <li><a href="#" th:text="#{exercicio.done}"></a></li>
-            <li><a href="#" th:text="#{users}"></a></li>
-            <li>
-                <!-- Dropdown Trigger -->
-                <a class='dropdown-trigger' href='#' data-target='dropdown1'>
-                  <img th:src="${avatar_url}" alt="avatar do usuario" class="avatar">
-                </a>
 
-                <!-- Dropdown Structure -->
-                <ul id='dropdown1' class='dropdown-content'>
-                  <li><span th:text="${username}"></span></li>
-                  <li class="divider" tabindex="-1"></li>
-                  <li><a href="#!"><i class="material-icons">logout</i>Sair</a></li>
-                </ul>
-            </li>
-          </ul>
-        </div>
-      </nav>
+<head th:replace="~{_template :: head('Exercicios')}"></head>
+
+<body class="#eceff1 blue-grey lighten-5">
+
+    <nav th:replace="~{_template :: #navbar}"></nav>
 
       <main class="container">
         <div class="card-panel teal white-text" th:if="${success}" th:text="${success}"></div>
@@ -43,14 +16,25 @@
             <div class="col s12 m6 l4" th:each="ex : ${exercicios}">
               <div class="card"> 
                 <div class="card-content">
+                  <img th:if="${ex.user != null}" th:src="${ex.user.avatarUrl}" class="avatar" alt="">
                   <span class="card-title" th:text="${ex.title}"></span>
                   <p th:text="${ex.description}"></p>
                   <span data-badge-caption="Pontos" class="badge blue white-text" th:text="${ex.score}"></span>
                 </div>
                 
                 <div class="card-action">
-                  <a href="#" class="btn green"><i class="material-icons">check</i></a>
-                  <a href="#" class="btn red" th:href="${'/exercicio/delete/' + ex.id}"><i class="material-icons">delete</i></a>
+                  <a class="btn green">
+                    <i class="material-icons">check</i>
+                  </a>
+                  <a class="btn red" th:href="${'/exercicio/delete/' + ex.id}">
+                    <i class="material-icons">delete</i>
+                  </a>
+                  <a class="btn purple" th:if="${ex.user == null}" th:href="${'/exercicio/catch/' + ex.id}" title="Pegar exercicio">
+                    <i class="material-icons">pan_tool</i>
+                  </a>
+                  <a class="btn amber black-text" th:if="${ex.user != null}" th:href="${'/exercicio/drop/' + ex.id}" title="Largar exercicio">
+                    <i class="material-icons">do_not_touch</i>
+                  </a>
                 </div>
               </div>
             </div>

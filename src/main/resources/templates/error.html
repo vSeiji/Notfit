@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head th:replace="~{_template :: head('Erro')}"></head>
+
+<body class="grey lighten-2">
+    
+    <main class="container center">
+
+        <h4>Ops! Um erro ocorreu</h4>
+
+        <p th:text="${message}"></p>
+
+        <a href="/exercicio" class="btn">
+            <i class="material-icons left">chevron_left</i>
+            Voltar para home
+        </a>
+
+ 
+    </main>
+
+</body>
+</html>

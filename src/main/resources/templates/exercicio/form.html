@@ -1,24 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>Notfit</title>
-</head>
+
+<head th:replace="~{_template :: head('Cadastrar')}"></head>
+
 <body class="#eceff1 blue-grey lighten-5">
-    <nav>
-        <div class="nav-wrapper #0091ea light-blue accent-4">
-          <a href="#" class="brand-logo">Notfit</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="active"><a href="/exercicio">Pendentes</a></li>
-            <li><a href="#">Concluidos</a></li>
-            <li><a href="#">Perfil</a></li>
-          </ul>
-        </div>
-      </nav>
+
+      <nav th:replace="~{_template :: #navbar}"></nav>
 
       <main class="container">
         <h2>Cadastrar exercicio</h2>
